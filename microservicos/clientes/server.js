@@ -34,6 +34,30 @@ app.get("/clientes", async (req, res) => {
     }
 });
 
+app.get("/clientes/:id", async (req, res) => {
+    try {
+        const resultado = await db.query(
+            "SELECT * FROM clientes WHERE id = $1",
+            [req.params.id]
+        );
+
+        const cliente = resultado.rows[0];
+
+        if (!cliente) {
+            return res.status(404).json({
+                erro: "Cliente não encontrado"
+            });
+        }
+
+        res.json(cliente);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            erro: "Erro ao buscar cliente"
+        });
+    }
+});
+
 async function criarTabela() {
     await db.query(`
         CREATE TABLE IF NOT EXISTS clientes (

@@ -77,6 +77,12 @@ app.post("/clientes", async (req, res) => {
 
         res.status(201).json(resultado.rows[0]);
     } catch (error) {
+        if (error.code === "23505") {
+            return res.status(409).json({
+                erro: "Email já cadastrado"
+            });
+        }
+
         console.error(error);
         res.status(500).json({
             erro: "Erro ao criar cliente"

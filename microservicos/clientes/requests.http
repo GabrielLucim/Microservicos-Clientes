@@ -16,3 +16,50 @@ Content-Type: application/json
     "telefone": "44999999999",
     "email": "gabriel@email.com"
 }
+
+### Criar cliente 2
+POST http://localhost:3003/clientes
+Content-Type: application/json
+
+{
+    "nome": "Ana",
+    "sobrenome": "Souza",
+    "telefone": "44988888888",
+    "email": "ana.souza@email.com"
+}
+
+
+### Criar cliente 3
+POST http://localhost:3003/clientes
+Content-Type: application/json
+
+{
+    "nome": "Carlos",
+    "sobrenome": "Oliveira",
+    "telefone": "44977777777",
+    "email": "carlos.oliveira@email.com"
+}
+
+
+### Criar cliente 4
+POST http://localhost:3003/clientes
+Content-Type: application/json
+
+{
+    "nome": "Beatriz",
+    "sobrenome": "Santos",
+    "telefone": "44966666666",
+    "email": "beatriz.santos@email.com"
+}
+
+
+### Criar cliente 5
+POST http://localhost:3003/clientes
+Content-Type: application/json
+
+{
+    "nome": "Lucas",
+    "sobrenome": "Pereira",
+    "telefone": "44955555555",
+    "email": "lucas.pereira@email.com"
+}

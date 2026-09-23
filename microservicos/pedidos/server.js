@@ -72,9 +72,9 @@ app.get("/pedidos", async (req, res) => {
 });*/
 
 app.post("/pedidos", async (req, res) => {
-    const { produtoId, quantidade } = req.body;
+    const { produtoId, cliente_id, quantidade } = req.body;
 
-    if (!produtoId || !quantidade || quantidade <= 0) {
+    if (!produtoId || !cliente_id || !quantidade || quantidade <= 0) {
         return res.status(400).json({
             erro: "produtoId e quantidade válida são obrigatórios"
         });
@@ -97,16 +97,18 @@ app.post("/pedidos", async (req, res) => {
         nome_produto,
         preco_unitario,
         quantidade,
-        total
+        total,
+        cliente_id
       )
-      VALUES ($1, $2, $3, $4, $5)
+      VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *`,
             [
                 produto.id,
                 produto.nome,
                 produto.preco,
                 quantidade,
-                total
+                total,
+                cliente_id
             ]
         );
 
@@ -172,12 +174,13 @@ app.use(express.json());
 async function criarTabela() {
     await db.query(`
         CREATE TABLE IF NOT EXISTS pedidos (
-        id SERIAL PRIMARY KEY,
-        produto_id INTEGER NOT NULL,
-        nome_produto VARCHAR(100) NOT NULL,
-        preco_unitario NUMERIC(10, 2) NOT NULL,
-        quantidade INTEGER NOT NULL,
-        total NUMERIC(10, 2) NOT NULL
+            id SERIAL PRIMARY KEY,
+            produto_id INTEGER NOT NULL,
+            nome_produto VARCHAR(100) NOT NULL,
+            preco_unitario NUMERIC(10, 2) NOT NULL,
+            quantidade INTEGER NOT NULL,
+            total NUMERIC(10, 2) NOT NULL,
+            cliente_id INTEGER NOT NULL
         )
     `);
 

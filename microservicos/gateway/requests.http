@@ -21,3 +21,20 @@ Content-Type: application/json
 
 ### Listar pedidos
 GET http://localhost:3000/pedidos
+
+### Listar clientes
+GET http://localhost:3000/clientes
+
+### Buscar cliente por ID
+GET http://localhost:3000/clientes/1
+
+### Criar cliente pelo Gateway
+POST http://localhost:3000/clientes
+Content-Type: application/json
+
+{
+ "nome": "Maria",
+ "sobrenome": "Souza",
+ "telefone": "46988888888",
+ "email": "maria@email.com"
+}

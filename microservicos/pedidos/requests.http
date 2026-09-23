@@ -12,3 +12,23 @@ Content-Type: application/json
 
 ### Buscar pedido por ID
 GET http://localhost:3002/pedidos/1
+
+### Criar pedido
+POST http://localhost:3002/pedidos
+Content-Type: application/json
+
+{
+  "produtoId": 1,
+  "cliente_id": 1,
+  "quantidade": 2
+}
+
+### Criar pedido com cliente inexistente
+POST http://localhost:3002/pedidos
+Content-Type: application/json
+
+{
+  "produtoId": 1,
+  "cliente_id": 999,
+  "quantidade": 2
+}

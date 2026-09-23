@@ -14,7 +14,7 @@ Content-Type: application/json
     "nome": "Gabriel",
     "sobrenome": "Lucim",
     "telefone": "44999999999",
-    "email": "gabriel@email.com"
+    "email": "gabriel.lucim@email.com"
 }
 
 ### Criar cliente 2

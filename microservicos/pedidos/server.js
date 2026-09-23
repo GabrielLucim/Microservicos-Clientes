@@ -6,6 +6,9 @@ const app = express();
 
 const PRODUTOS_URL =
     process.env.PRODUTOS_URL || "http://localhost:3001";
+    
+const CLIENTES_URL =
+    process.env.CLIENTES_URL || "http://localhost:3003";
 
 app.use(express.json());
 
@@ -89,6 +92,14 @@ app.post("/pedidos", async (req, res) => {
         );
 
         const produto = resposta.data;
+
+        await axios.get(
+            `${CLIENTES_URL}/clientes/${cliente_id}`,
+            {
+                timeout: 3000
+            }
+        );
+
         const total = produto.preco * quantidade;
 
         const resultado = await db.query(
@@ -115,12 +126,24 @@ app.post("/pedidos", async (req, res) => {
         res.status(201).json(resultado.rows[0]);
     } catch (erro) {
         if (erro.response?.status === 404) {
+            if (erro.config?.url?.includes("/clientes/")) {
+                return res.status(400).json({
+                    erro: "Cliente não encontrado"
+                });
+            }
+
             return res.status(400).json({
                 erro: "Produto não encontrado"
             });
         }
 
         if (erro.code === "ECONNREFUSED" || erro.code === "ECONNABORTED") {
+            if (erro.config?.url?.includes("/clientes/")) {
+                return res.status(503).json({
+                    erro: "Serviço de Clientes indisponível"
+                });
+            }
+
             return res.status(503).json({
                 erro: "Serviço de Produtos indisponível"
             });
